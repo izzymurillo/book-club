@@ -37,67 +37,60 @@ public class HomeController {
   // ========= (POST ROUTE FOR REGISTRATION) ==========
   @PostMapping("/register")
   public String register(
-    @Valid @ModelAttribute("newUser") User newUser,
-    BindingResult result,
-    Model model,
-    HttpSession session) {
+      @Valid @ModelAttribute("newUser") User newUser,
+      BindingResult result,
+      Model model,
+      HttpSession session) {
 
-      User user = userServ.register(newUser, result);
-      // TO-DO Later -- call a register method in the service
-      // to do some extra validations and create a new user!
-      
-      if (result.hasErrors()) {
-        // Be sure to send in the empty LoginUser before
-        // re-rendering the page.
-        model.addAttribute("newLogin", new LoginUser());
-        return "index.jsp";
-      }
-      
-      // No errors!
-      // TO-DO Later: Store their ID from the DB in session,
-      session.setAttribute("userId", user.getId());
-      session.setAttribute("userName", user.getUserName());
-      // in other words, log them in.
-      return "redirect:/welcome";
+    User user = userServ.register(newUser, result);
+    // TO-DO Later -- call a register method in the service
+    // to do some extra validations and create a new user!
+
+    if (result.hasErrors()) {
+      // Be sure to send in the empty LoginUser before
+      // re-rendering the page.
+      model.addAttribute("newLogin", new LoginUser());
+      return "index.jsp";
     }
-    
+
+    // No errors!
+    // TO-DO Later: Store their ID from the DB in session,
+    session.setAttribute("userId", user.getId());
+    session.setAttribute("userName", user.getUserName());
+    // in other words, log them in.
+    return "redirect:/books";
+  }
+
   // ============ (POST ROUTE FOR LOGIN) =============
   @PostMapping("/login")
   public String login(
-    @Valid @ModelAttribute("newLogin") LoginUser newLogin,
-    BindingResult result,
-    Model model,
-    HttpSession session) {
-      
-      // Add once service is implemented:
-      User user = userServ.login(newLogin, result);
-      
-      if (result.hasErrors()) {
-        model.addAttribute("newUser", new User());
-        return "index.jsp";
-      }
-      // No errors!
-      // TO-DO Later: Store their ID from the DB in session,
-      session.setAttribute("userId", user.getId());
-      session.setAttribute("userName", user.getUserName());
-      // in other words, log them in.
-      return "redirect:/welcome";
+      @Valid @ModelAttribute("newLogin") LoginUser newLogin,
+      BindingResult result,
+      Model model,
+      HttpSession session) {
+
+    // Add once service is implemented:
+    User user = userServ.login(newLogin, result);
+
+    if (result.hasErrors()) {
+      model.addAttribute("newUser", new User());
+      return "index.jsp";
     }
-    
-  // ============ (Welcome - Dashboard) =============
-  @GetMapping("/welcome")
-  public String welcome() {
-    return "welcome.jsp";
+    // No errors!
+    // TO-DO Later: Store their ID from the DB in session,
+    session.setAttribute("userId", user.getId());
+    session.setAttribute("userName", user.getUserName());
+    // in other words, log them in.
+    return "redirect:/books";
   }
-  
-  // ============ (Logout) =============
+
+  // =============== (ROUTE TO LOGOUT) ================
   @GetMapping("/logout")
   public String logout(HttpSession session) {
     // clear session to logout
     // session.setAttribute("userId", null);
-    // session.invalidate();
+    session.invalidate();
     return "redirect:/";
   }
-
 
 }

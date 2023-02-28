@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login & Registration</title>
+    <title>Read Share</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/darkly.css"> <!-- change to match your file/naming structure -->
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -20,8 +20,8 @@
 <body>
   <div class="container m-5">
     <div>
-      <h1>Welcome!</h1>
-      <h6>Join our growing community.</h6>
+      <h1>Book Club</h1>
+      <h5>A place for friends to share thoughts on books.</h5>
     </div>
     <div class="d-flex justify-content-around">
       <div class="card m-5">
